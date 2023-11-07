@@ -1,0 +1,151 @@
+/*
+Продвижение ваших сайтов - https://web-ptica.ru/
+*/
+
+/*input[type="text"]::placeholder { color:#000; }*/
+
+.modalbox-wrap{width:470px;}
+
+input[type=radio] {
+	display: none;
+}
+.form-valid  label:before {
+	content: "";
+	display: inline-block;
+
+	width: 16px;
+	height: 16px;
+
+	margin-right: 10px;
+
+	background-color: #f99b06;
+	
+		border-radius: 8px;
+    position: absolute;
+    left: 0px;
+    top: 5px;
+}
+
+input[type=radio]:checked + label:before {
+
+    content: "\2022";
+    color: #f3f3f3;
+    font-size: 30px;
+    text-align: center;
+    line-height: 20px;
+}
+
+
+#contact #form_text{
+	
+width: 97%;
+    margin: 0 auto 16px;
+    padding: 10px 3%;
+    height: 73px;
+    font-size: 16px;
+    color: #181616;
+
+    background: #fff;
+    border: 1px solid #dddddd;
+    line-height: 18px;
+    display: block;	
+	max-width: 659px;
+}
+
+#call {display:none;}
+#call input[type="text"]{
+	
+height: 35px;
+    background: #fff;
+    width: 97%;
+    margin: 0 auto 16px;
+    padding: 0 0 0 3%;
+    font-size: 16px;
+    color: #000;
+
+    border: 1px solid #dddddd;
+    display: block;	
+	
+}
+#call input[type="submit"] {
+    width: 97%;
+    margin: 0 auto;
+    /* padding: 0 2.5%!important; */
+    height: 45px;
+    color: #fff;
+    /* border-top: 3px solid #89e5f7; */
+    /* box-shadow: 0 2px 2px rgba(0,0,0,0.82); */
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    background: #f99b06;
+    background: -moz-linear-gradient(top, #02bbdd 0%, #018bae 100%);
+    /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #02bbdd), color-stop(100%, #018bae)); */
+    /* background: -webkit-linear-gradient(top, #02bbdd 0%, #018bae 100%); */
+    background: -o-linear-gradient(top, #02bbdd 0%, #018bae 100%);
+    background: -ms-linear-gradient(top, #02bbdd 0%, #018bae 100%);
+    /* background: linear-gradient(to bottom, #02bbdd 0%, #018bae 100%); */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#02bbdd', endColorstr='#018bae',GradientType=0);
+    border-radius: unset;
+    display: block;
+}
+
+#call input[type="submit"]:hover {
+    background: #f99b06;
+}
+.b5-left input[type="text"].error, #call input[type="text"].error{border:1px solid #f00;}
+
+#contact label{
+padding: 4px 30px 13px 27px;
+    float: left;
+    margin: 0 0 0 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.konfdan{    color: #ababab;
+    text-align: justify;
+    padding: 0 !important;
+    width: 97%;
+    display: block;
+    margin: 0 auto 17px;
+    font-size: 14px;}
+	
+.konfdan a{color: #868080;}
+
+.vyborsvsp{    display: block;
+    width: 97.4%;
+    margin: 0 auto;
+    padding: 0px 0 10px;}
+	
+	
+.popup-title {
+    width: 97%;
+    margin: 0 auto;
+    font-size: 25px;
+    color: #101010;
+    font-weight: 300;
+    text-transform: uppercase;
+    line-height: 33px;
+    text-align: center;
+    padding: 0 0 25px;
+}
+
+.skrytvrv{display:none !important;}
+
+.form_vrv{display:none !important;}
+.form_vrv2{border:0 !important; width:1px !important; height:1px !important;padding: 0 0 0 0!important;    background: #fff !important;    float: left;}
+.form_vrv3{border:0 !important; width:1px !important; height:1px !important;padding: 0 0 0 0!important;    background: #fff !important;    float: left;}
+
+.call{}
+
+a.modalbox.call {
+    color: #101010;
+}
+.call span{}
+.call:hover span{}
+
+
+input.btn,a.btn,button.btn {
+  
+}

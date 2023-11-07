@@ -1,0 +1,42 @@
+<modification>
+	<id></id>
+	<name>Maintenance Informer</name>
+	<code>maintenance_informer</code>
+	<version>1.0.1</version>
+	<author>karapuz (support@ka-station.com)</author>
+	<link>http://www.opencart.com/index.php?route=extension/extension/info&amp;extension_id=23201</link>
+	<file path="admin/controller/common/header.php">
+		<operation>
+			<search  index="0"><![CDATA[view('common/header.tpl']]></search>
+			<add position="before"><![CDATA[//karapuz (maintenance_informer.ocmod.xml) 
+		if ($this->config->get('config_maintenance')) {
+			$data['show_maitenance_warning'] = true;
+			if (!empty($data['logged']) && !empty($this->session->data['token'])) {
+				$data['settings_page_url'] = $this->url->link('setting/setting', 'token=' . $this->session->data['token'], 'SSL');
+			}
+		}
+///karapuz (maintenance_informer.ocmod.xml) 		
+]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/common/header.tpl">
+		<operation>
+			<search  index="0"><![CDATA[</header>]]></search>
+			<add position="before"><![CDATA[<?php /* //karapuz (maintenance_informer.ocmod.xml)  */?>
+	<?php if (!empty($show_maitenance_warning)) { ?>
+  <div style="margin: auto; background-color: yellow; width:640px;">
+		<div style="width: 100%; display: block; height: 10px; margin: auto; background-position: 0px 0px; background-color: yellow; background-image: repeating-linear-gradient(-45deg, transparent, transparent 13px, black 13px, black 26px)"></div>
+		<div style="text-transform: uppercase; width: 100%; display: block; color: black; font-weight: bold; text-align: center;">
+			Store closed. Maintenance mode enabled. 
+			<?php if (!empty($settings_page_url)) { ?>
+				The switch is on the '<a href="<?php echo $settings_page_url; ?>">settings</a>' page.
+			<?php } ?>
+		</div>
+		<div style="width: 100%; display: block; height: 10px; background-position: 0px 0px; background-image: repeating-linear-gradient(-45deg, transparent, transparent 13px, black 13px, black 26px)"></div>
+	</div>
+<?php } ?>
+<?php /* ///karapuz (maintenance_informer.ocmod.xml)  */?>
+]]></add>
+		</operation>
+	</file>
+</modification>

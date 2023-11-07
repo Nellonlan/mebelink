@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>Быстрое редактирование цен</name>
+  <code>price_quick_changer</code>
+  <version>1.0</version>
+  <author>https://ocmod.net</author>
+  <link>https://ocmod.net</link>
+
+	<file path="admin/controller/catalog/product.php">
+		<operation>
+            <search><![CDATA[
+				public function delete() {
+            ]]></search>
+			 <add position="before"><![CDATA[
+				public function price() {
+					if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+						$this->db->query("UPDATE " . DB_PREFIX . "product SET price = '" . (float)$this->request->post['price'] . "' WHERE product_id = '" . (int)$this->request->post['product_id'] . "'");
+						$this->cache->delete('product');
+					}
+				}
+            ]]></add>
+        </operation>	
+	</file>		
+	
+	<file path="admin/view/template/catalog/product_list.tpl">
+        <operation>
+            <search><![CDATA[
+				<?php echo $product['price']; ?>
+            ]]></search>
+			<add position="replace"><![CDATA[
+					<input type="text" name="price" value="<?php echo $product['price']; ?>" size="10" id="price<?php echo $product['product_id']; ?>" class="form-control" style="float: left;width: auto;" />
+					<a onclick="updatePrice(<?php echo $product['product_id']; ?>);$(this).fadeTo(250, 0.2);$(this).fadeTo(150, 0.7);" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="<?php echo $button_edit; ?>" style="float: left; margin-left: 10px;"><i class="fa fa-save"></i></a>
+            ]]></add>
+        </operation>
+		<operation>
+            <search><![CDATA[
+				<?php echo $footer; ?>
+            ]]></search>
+			<add position="before"><![CDATA[
+				<script type="text/javascript"><!--
+				function updatePrice(product_id) {
+					var price = $('#price' + product_id).val();
+					$.post('index.php?route=catalog/product/price&token=<?php echo $token; ?>', 'price=' + price + '&product_id=' + product_id);
+				}
+				//--></script>
+            ]]></add>
+        </operation>
+	</file>
+	
+</modification>

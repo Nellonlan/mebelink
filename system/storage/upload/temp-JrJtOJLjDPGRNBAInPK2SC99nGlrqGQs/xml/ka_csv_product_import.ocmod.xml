@@ -1,0 +1,97 @@
+<modification>
+		<id></id>
+		<name>CSV Product Import</name>
+		<code>ka_csv_product_import</code>
+		<version>4.2.4.1</version>
+		<author>karapuz (support@ka-station.com)</author>
+		<link>http://www.opencart.com/index.php?route=extension/extension/info&amp;extension_id=20080</link>
+		<file path="admin/controller/catalog/product.php">
+		<operation>
+			<search  index="0"><![CDATA[isset($this->request->post['sort_order'])]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_csv_product_import.ocmod.xml) 
+		if (isset($this->request->post['skip_import'])) {
+			$data['skip_import'] = (int) $this->request->post['skip_import'];
+		} elseif (!empty($product_info)) {
+			$data['skip_import'] = (int) $product_info['skip_import'];
+		} else {
+			$data['skip_import'] = 0;
+		}
+///karapuz (ka_csv_product_import.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/common/menu.php">
+		<operation>
+			<search  index="0"><![CDATA[$data['backup'] =]]></search>
+			<add position="after"><![CDATA[		//karapuz (ka_csv_product_import.ocmod.xml) 
+		if (method_exists($this->db, 'isKaInstalled') && $this->db->isKaInstalled('ka_product_import')) {
+			$data['ka_product_import'] = $this->url->link('tool/ka_product_import', 'token=' . $this->session->data['token'], true);
+		}
+		///karapuz (ka_csv_product_import.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/en-gb/catalog/product.php">
+		<operation>
+			<search  index="0"><![CDATA[entry_sort_order]]></search>
+			<add position="after"><![CDATA[//karapuz (ka_csv_product_import.ocmod.xml) 
+$_['Skip Import']            = 'Skip Import';
+$_['help_skip_import']       = "The field allows to exclude the product from 'CSV Product Import' operations. No product data will be updated during the import procedure.";
+///karapuz (ka_csv_product_import.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation>
+			<search  index="0"><![CDATA[ModelCatalogProduct extends]]></search>
+			<add position="after"><![CDATA[//karapuz (ka_csv_product_import.ocmod.xml) 
+	protected $last_product_id = false;
+	
+	public function getLastProductId() {
+		return $this->last_product_id;
+	}
+///karapuz (ka_csv_product_import.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[$product_id = $this->db->getLastId()]]></search>
+			<add position="after"><![CDATA[		//karapuz (ka_csv_product_import.ocmod.xml) 
+		$this->last_product_id = $product_id;
+		if (isset($data['skip_import'])) {
+			$this->db->query("UPDATE " . DB_PREFIX . "product SET skip_import = '" . (int)$data['skip_import'] . "' WHERE product_id = '" . (int)$product_id . "'");
+		}
+		///karapuz (ka_csv_product_import.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[n editProduct(]]></search>
+			<add position="after"><![CDATA[		//karapuz (ka_csv_product_import.ocmod.xml) 
+		$this->last_product_id = $product_id;
+		if (isset($data['skip_import'])) {
+			$this->db->query("UPDATE " . DB_PREFIX . "product SET skip_import = '" . (int)$data['skip_import'] . "' WHERE product_id = '" . (int)$product_id . "'");
+		}
+		///karapuz (ka_csv_product_import.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.tpl">
+		<operation>
+			<search  index="0"><![CDATA[for="input-sort-order"]]></search>
+			<add position="before" offset="1"><![CDATA[<?php /* //karapuz (ka_csv_product_import.ocmod.xml)  */?>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-skip_import"><span data-toggle="tooltip" title="<?php echo KaGlobal::t('help_skip_import'); ?>"><?php echo KaGlobal::t('Skip Import'); ?></span></label>
+                <div class="col-sm-10">
+                  <select name="skip_import" id="input-skip_import" class="form-control">
+                    <option value="0" <?php if ($skip_import == 0) { ?> selected="selected"<?php } ?>><?php echo $text_no; ?></option>
+                    <option value="1" <?php if ($skip_import == 1) { ?> selected="selected"<?php } ?>><?php echo $text_yes; ?></option>
+                  </select>
+                </div>
+              </div>
+<?php /* ///karapuz (ka_csv_product_import.ocmod.xml)  */?>]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/common/menu.tpl">
+		<operation>
+			<search  index="0"><![CDATA[<li><a href="<?php echo $backup;]]></search>
+			<add position="after"><![CDATA[<?php /* //karapuz (ka_csv_product_import.ocmod.xml)  */?>
+      <?php if (!empty($ka_product_import)) { ?>
+        <li><a href="<?php echo $ka_product_import; ?>"><?php echo KaGlobal::t('CSV Product Import'); ?></a></li>
+      <?php } ?>
+<?php ///karapuz (ka_csv_product_import.ocmod.xml)  ?>]]></add>
+		</operation>
+	</file>
+</modification>

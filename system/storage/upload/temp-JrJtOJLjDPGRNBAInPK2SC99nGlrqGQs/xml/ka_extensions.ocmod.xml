@@ -1,0 +1,160 @@
+<modification>
+		<id></id>
+		<name>Ka Extensions platform</name>
+		<code>ka_extensions</code>
+		<version>3.3.4</version>
+		<author>karapuz (support@ka-station.com)</author>
+		<link>https://www.ka-station.com/tickets/kb/faq.php?id=13</link>
+		<file path="admin/controller/common/menu.php">
+		<operation>
+			<search  index="0"><![CDATA[$data['manufacturer'] = $this->url->link(]]></search>
+			<add position="before"><![CDATA[		//karapuz (ka_extensions.ocmod.xml) 
+		$data['ka_extensions'] = $this->url->link('extension/ka_extensions', 'token=' . $this->session->data['token'], 'SSL');
+		///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/extension/modification.php">
+		<operation>
+			<search  index="0"><![CDATA[function refresh(]]></search>
+			<add position="after"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+		$GLOBALS['is_proxy_disabled'] = true;
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="1"><![CDATA[$this->response->redirect($this]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+			if (!empty($GLOBALS['ka_silent_return'])) {
+				return !empty($status);
+			}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="2"><![CDATA[$this->getList();]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+		if (!empty($GLOBALS['ka_silent_return'])) {
+			return false;
+		}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/extension/modification.php">
+		<operation>
+			<search  index="0"><![CDATA[n deleteModification(]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+	public function isKaExtensions($modification_id) {
+		
+		$mod = $this->getModification($modification_id);
+		if (empty($mod)) {
+			return false;
+		}
+		
+		if ($mod['code'] == 'ka_extensions') {
+			return true;
+		}
+	
+		return false;
+	}	
+	
+	public function isKaRequired() {
+	
+		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "modification WHERE
+			`code` != 'ka_extensions'
+			AND `code` LIKE 'ka_%'
+		");
+		
+		if (empty($qry->row)) {
+			return false;
+		}
+		
+		return true;
+	}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[n deleteModification(]]></search>
+			<add position="after"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+		if ($this->isKaExtensions($modification_id) && $this->isKaRequired()) {
+			return false;
+		}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[n disableModification(]]></search>
+			<add position="after"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+		if ($this->isKaExtensions($modification_id) && $this->isKaRequired()) {
+			return false;
+		}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/common/menu.tpl">
+		<operation>
+			<search  index="0"><![CDATA[<li><a href="<?php echo $modification;]]></search>
+			<add position="after"><![CDATA[<?php /* //karapuz (ka_extensions.ocmod.xml)  */?>
+				<li><a href="<?php echo $ka_extensions; ?>"><?php echo KaGlobal::t('Ka Extensions'); ?></a></li>
+<?php /* ///karapuz (ka_extensions.ocmod.xml)  */?>]]></add>
+		</operation>
+	</file>
+	<file path="system/engine/loader.php">
+		<operation>
+			<search  index="0"><![CDATA[$this->registry = $registry;]]></search>
+			<add position="after"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+KaGlobal::init($registry);
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[include_once(]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+				if (!class_exists($class))
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[$proxy = new Proxy();]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+			if (empty($GLOBALS['is_proxy_disabled'])) {
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[$proxy);]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+			} else {
+				$proxy = new $class ($this->registry);
+			}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+		<operation>
+			<search  index="0"><![CDATA[function language(]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+	public function kamodel($route) {
+		$GLOBALS['is_proxy_disabled'] = true;
+		$this->model($route);
+		$GLOBALS['is_proxy_disabled'] = false;
+	}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+	<file path="system/library/db.php">
+		<operation>
+			<search  index="0"><![CDATA[public function getLastId(]]></search>
+			<add position="before"><![CDATA[//karapuz (ka_extensions.ocmod.xml) 
+  	public function isKaInstalled($extension) {
+		static $installed = array();
+		
+		if (isset($installed[$extension])) {
+			return $installed[$extension];
+		}
+		
+		$query = $this->query("SELECT * FROM " . DB_PREFIX . "extension WHERE code = '$extension'");
+		if (empty($query->num_rows)) {
+			$installed[$extension] = false;
+			return false;
+		}
+		
+		$installed[$extension] = true;
+		
+		return true;
+  	}
+///karapuz (ka_extensions.ocmod.xml) ]]></add>
+		</operation>
+	</file>
+</modification>

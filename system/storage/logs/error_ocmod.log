@@ -1,0 +1,71 @@
+2023-03-01 14:33:38 - 
+ERROR: CODE NOT FOUND!
+FILE: admin/model/catalog/product.php
+CODE: $sql .= " AND cd2.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+MOD: Admin search+
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/view/template/extension/posts_form.tpl
+MOD: Auto SEO URL
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/view/template/extension/news_form.tpl
+MOD: Auto SEO URL
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/catalog/controller/feed/{google_sitemap,yandex_sitemap}.php
+MOD: Blog
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/controller/common/menu.php
+MOD: Export/Import Tool (V3.20) for OpenCart 2.x
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/language/*/common/menu.php
+MOD: Export/Import Tool (V3.20) for OpenCart 2.x
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/view/template/common/menu.tpl
+MOD: Export/Import Tool (V3.20) for OpenCart 2.x
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/catalog/view/theme/*/template/module/featured.tpl
+MOD: Hide Zero Price
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/catalog/view/theme/*/template/module/latest.tpl
+MOD: Hide Zero Price
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/catalog/view/theme/*/template/common/footer2.tpl
+MOD: MicrodataPro 7.5 for Opencart 2.3
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/system/library/tax.php
+MOD: Simple One Page Checkout
+
+ERROR: CODE NOT FOUND!
+FILE: catalog/controller/startup/seo_url.php
+CODE: $url[0] != 'product_id'
+MOD: Testimonial Store
+
+ERROR: CODE NOT FOUND!
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: ?php echo $text_contact; ?></a></li>
+MOD: Testimonial Store
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/controller/common/menu.php
+MOD: Удаление модулей
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/controller/common/menu.php
+MOD: Удаление модулей
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/controller/common/menu.php
+MOD: Удаление модулей
+
+ERROR: FILE NOT FOUND!
+FILE: /home/host1404323/mebeldk.ru/htdocs/www/admin/view/template/common/menu.tpl
+MOD: Удаление модулей
